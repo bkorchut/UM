@@ -10,7 +10,7 @@ X = np.array([[0, 0], [1, 0], [0, 1], [1, 1]])
 y = np.array([0, 1, 1, 0])
 
 # Trenowanie modelu
-clf = MLPClassifier(hidden_layer_sizes=(2),
+clf = MLPClassifier(hidden_layer_sizes=(3),
                     activation='logistic',
                     learning_rate_init=1,
                     learning_rate='constant',
