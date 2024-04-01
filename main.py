@@ -23,18 +23,18 @@ clf = MLPClassifier(hidden_layer_sizes=(2),
 
 clf.fit(X, y.reshape(len(y)))
 
-accuracy=clf.score(X, y)
+#accuracy=clf.score(X, y)
 
 print('score:', clf.score(X, y))
 print('predictions:', clf.predict(X))
-
+'''
 plt.figure(figsize=(10, 5))
 plt.plot(accuracy)
 plt.title('Classification Error in Each Epoch')
 plt.xlabel('Epochs')
 plt.ylabel('Classification Error')
 plt.show()
-
+'''
 y_pred = clf.predict(X)
 mse = mean_squared_error(y, y_pred)
 
