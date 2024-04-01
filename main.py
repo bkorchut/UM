@@ -24,12 +24,13 @@ clf = MLPClassifier(hidden_layer_sizes=(3),
 clf.fit(X, y.reshape(len(y)))
 
 #accuracy=clf.score(X, y)
-# Wykresy błędu MSE
+
+# Wykresy strat
 plt.figure(figsize=(10, 5))
 plt.plot(clf.loss_curve_)
 plt.title('Losses in Each Layer')
 plt.xlabel('Epochs')
-plt.ylabel('loss')
+plt.ylabel('Loss')
 plt.show()
 
 print('score:', clf.score(X, y))
