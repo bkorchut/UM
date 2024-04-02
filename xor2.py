@@ -82,6 +82,7 @@ for epoch in range(num_epochs):
         error = 0
     classification_errors.append(error)
 
+# Wykres błędu klasyfikacji
 plt.figure(figsize=(10, 5))
 plt.plot(range(num_epochs), classification_errors)
 plt.xlabel('Batch')
@@ -89,6 +90,7 @@ plt.ylabel('Classification Error')
 plt.title('Classification Error of MLPClassifier')
 plt.show()
 
+# Warstwa ukryta
 hidden_layer_weights = clf.coefs_[0]
 plt.figure(figsize=(10, 5))
 plt.imshow(hidden_layer_weights, cmap='viridis', interpolation='nearest')
@@ -96,7 +98,7 @@ plt.title('Weights in the Hidden Layer')
 plt.colorbar()
 plt.show()
 
-# Plotting weights in the input layer
+# Warstwa wejściowa
 input_layer_weights = clf.coefs_[1]
 plt.figure(figsize=(10, 5))
 plt.imshow(input_layer_weights, cmap='viridis', interpolation='nearest')
@@ -104,14 +106,14 @@ plt.title('Weights in the Input Layer')
 plt.colorbar()
 plt.show()
 
-# Plotting these weights can give us insight into how the network makes its predictions
+# Warstwa wyjściowa
 plt.figure(figsize=(10, 5))
 plt.imshow(hidden_layer_weights.T, cmap='viridis', interpolation='nearest')
 plt.title('Weights Leading to the Output Layer')
 plt.colorbar()
 plt.show()
 
-#MinMax
+# MinMax
 x_min, x_max = X_train[:, 0].min() - 1, X_train[:, 0].max() + 1
 y_min, y_max = X_train[:, 1].min() - 1, X_train[:, 1].max() + 1
 xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1),
@@ -120,7 +122,7 @@ xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1),
 Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
 Z = Z.reshape(xx.shape)
 
-#Weights
+# Wagi minmax
 plt.contourf(xx, yy, Z, alpha=0.8)
 plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train, edgecolors='k', marker='o')
 plt.xlabel('Feature 1')
@@ -128,6 +130,7 @@ plt.ylabel('Feature 2')
 plt.title('Weights in Output Layer')
 plt.show()
 
+# Wagi na podstawie regionów granicznych
 plot_decision_regions(X_train, y_train, clf=clf)
 plt.title('Wages')
 plt.xlabel(' ')
