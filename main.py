@@ -14,18 +14,19 @@ clf = MLPClassifier(hidden_layer_sizes=(3),
                     activation='logistic',
                     learning_rate_init=1,
                     learning_rate='constant',
-                    max_iter=10000,
+                    max_iter=1800,
                     n_iter_no_change=1000,
                     tol=1e-6,
                     batch_size='auto',
                     solver='sgd'
 )
 
-clf.fit(X, y.reshape(len(y)))
+
+clf.fit(X, y)
 
 #accuracy=clf.score(X, y)
 
-# Wykresy strat
+# Wykres strat
 plt.figure(figsize=(10, 5))
 plt.plot(clf.loss_curve_)
 plt.title('Losses in Each Layer')
@@ -35,6 +36,7 @@ plt.show()
 
 print('score:', clf.score(X, y))
 print('predictions:', clf.predict(X))
+
 '''
 plt.figure(figsize=(10, 5))
 plt.plot(accuracy)
@@ -43,8 +45,21 @@ plt.xlabel('Epochs')
 plt.ylabel('Classification Error')
 plt.show()
 '''
-y_pred = clf.predict(X)
-mse = mean_squared_error(y, y_pred)
+
+errors = []
+
+# Trenowanie modelu i zbieranie błędów klasyfikacji w każdej epoce
+for i in range(clf.max_iter):
+    clf.partial_fit(X, y, classes=np.unique(y))
+    y_pred = clf.predict(X)
+    mse = mean_squared_error(y, y_pred)
+    error = 1 - accuracy_score(y, y_pred)
+    if error >= 0.5:
+        error = 1
+    elif error < 0.5:
+        error = 0
+
+    errors.append(error)
 
 # Wykresy błędu MSE
 plt.figure(figsize=(10, 5))
@@ -54,16 +69,6 @@ plt.xlabel('Epochs')
 plt.ylabel('MSE')
 plt.show()
 
-errors = []
-
-# Trenowanie modelu i zbieranie błędów klasyfikacji w każdej epoce
-for i in range(clf.max_iter):
-    error = 1 - accuracy_score(y, y_pred)
-    if error >= 0.5:
-        error = 1
-    elif error < 0.5:
-        error = 0
-    errors.append(error)
 
 # Wykres błędu klasyfikacji w każdej epoce uczenia
 plt.figure(figsize=(10, 5))
