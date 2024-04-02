@@ -86,32 +86,10 @@ plt.figure(figsize=(10, 6))
 plt.plot(range(num_epochs), classification_errors)
 plt.xlabel('Epoch')
 plt.ylabel('Classification Error')
-plt.title('Classification Error of MLPClassifier on Iris Dataset')
+plt.title('Classification Error of MLPClassifier')
 plt.show()
 
 """
-threshold = 0.5
-errors = []
-
-for i in range(clf.n_iter_):
-    clf.partial_fit(X_train, y_train, classes=[0, 1])
-    y_pred = clf.predict(X_test)
-    error = 1 - accuracy_score(y_test, y_pred)
-    if error >= threshold:
-        error = 1
-    if error < threshold:
-        error = 0
-    errors.append(error)
-
-# Wykres błędu klasyfikacji w każdej epoce uczenia
-plt.figure(figsize=(10, 5))
-plt.plot(errors)
-plt.title('Classification Error in Each Epoch')
-plt.xlabel('Epochs')
-plt.ylabel('Classification Error')
-plt.show()
-
-
 plot_decision_regions(X_train, y_train, clf=clf)
 plt.title('Wages')
 plt.xlabel(' ')
