@@ -42,15 +42,15 @@ plt.xlabel('Epochs')
 plt.ylabel('Loss')
 plt.show()
 
-# Making predictions on the training and test datasets
+# Predykcja dla zbioru trenowanego i testowanego
 y_train_pred = clf.predict(X_train)
 y_test_pred = clf.predict(X_test)
 
-# Calculating MSE for both datasets
+# Obliczanie błędu mse dla obu zbiorów
 mse_train = mean_squared_error(y_train, y_train_pred)
 mse_test = mean_squared_error(y_test, y_test_pred)
 
-# Plotting MSE for both datasets
+# Wykres MSE
 plt.figure(figsize=(10, 5))
 plt.scatter([0, 1], [mse_train, mse_test], marker='o', s=100)
 plt.title('Mean Squared Error (MSE) for Training and Test Data')
@@ -59,10 +59,12 @@ plt.ylabel('MSE')
 plt.xticks([0, 1], ['Training', 'Test'])
 plt.show()
 
+# Podział danych na batche
 batch_size = 20
 classification_errors = []
 num_epochs = len(X_train) // batch_size
 
+# Obliczanie błędu klasyfikacji po każdym batchu
 for epoch in range(num_epochs):
     start = epoch * batch_size
     end = start + batch_size
@@ -70,8 +72,6 @@ for epoch in range(num_epochs):
     y_train_batch = y_train[start:end]
 
     clf.fit(X_train_batch, y_train_batch)
-
-    # Make predictions on the test set
     y_pred = clf.predict(X_test)
 
     # Calculate the classification error
@@ -82,9 +82,9 @@ for epoch in range(num_epochs):
         error = 0
     classification_errors.append(error)
 
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(10, 5))
 plt.plot(range(num_epochs), classification_errors)
-plt.xlabel('Epoch')
+plt.xlabel('Batch')
 plt.ylabel('Classification Error')
 plt.title('Classification Error of MLPClassifier')
 plt.show()
