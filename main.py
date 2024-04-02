@@ -22,11 +22,11 @@ clf = MLPClassifier(hidden_layer_sizes=(3),
 )
 
 
-clf.fit(X, y)
+clf.fit(X, y.reshape(len(y)))
 
 #accuracy=clf.score(X, y)
 
-# Wykres strat
+# Wykresy strat
 plt.figure(figsize=(10, 5))
 plt.plot(clf.loss_curve_)
 plt.title('Losses in Each Layer')
@@ -37,14 +37,6 @@ plt.show()
 print('score:', clf.score(X, y))
 print('predictions:', clf.predict(X))
 
-'''
-plt.figure(figsize=(10, 5))
-plt.plot(accuracy)
-plt.title('Classification Error in Each Epoch')
-plt.xlabel('Epochs')
-plt.ylabel('Classification Error')
-plt.show()
-'''
 
 errors = []
 
