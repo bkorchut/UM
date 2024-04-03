@@ -63,10 +63,10 @@ errors = []
 
 # Trenowanie modelu i zbieranie błędów klasyfikacji w każdej epoce
 for i in range(clf.n_iter_):
-    clf.partial_fit(X, y, classes=np.unique(y))
+    clf.partial_fit(X_train, y_train, classes=np.unique(y))
     y_pred = clf.predict(X)
     mse = mean_squared_error(y, y_pred)
-    error = 1 - accuracy_score(y, y_pred)
+    error = 1 - clf.score(X_train,y_train)
     missclasification = error
     if error >= 0.5:
         error = 1
