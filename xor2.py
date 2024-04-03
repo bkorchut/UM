@@ -22,12 +22,12 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 
 # Tworzenie modelu
-clf = MLPClassifier(hidden_layer_sizes=(3),
-                    activation='relu',
+clf = MLPClassifier(hidden_layer_sizes=(5),
+                    activation='logistic',
                     learning_rate_init=1,
                     learning_rate='constant',
                     max_iter=5000,
-                    n_iter_no_change=200,
+                    n_iter_no_change=1000,
                     tol=1e-6,
                     solver='sgd'
                     )
