@@ -23,11 +23,11 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 # Tworzenie modelu
 clf = MLPClassifier(hidden_layer_sizes=(3),
-                    activation='logistic',
+                    activation='relu',
                     learning_rate_init=1,
                     learning_rate='constant',
                     max_iter=5000,
-                    n_iter_no_change=1000,
+                    n_iter_no_change=200,
                     tol=1e-6,
                     solver='sgd'
                     )
@@ -64,9 +64,9 @@ errors = []
 # Trenowanie modelu i zbieranie błędów klasyfikacji w każdej epoce
 for i in range(clf.n_iter_):
     clf.partial_fit(X_train, y_train, classes=np.unique(y))
-    y_pred = clf.predict(X)
-    mse = mean_squared_error(y, y_pred)
-    error = 1 - clf.score(X_train,y_train)
+    y_pred = clf.predict(X_train)
+    mse = mean_squared_error(y_train, y_pred)
+    error = 1 - accuracy_score(y_train, y_pred)
     missclasification = error
     if error >= 0.5:
         error = 1
