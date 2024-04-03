@@ -40,8 +40,8 @@ plt.plot(clf.loss_curve_)
 plt.title('Losses in Each Layer')
 plt.xlabel('Epochs')
 plt.ylabel('Loss')
-plt.show()
 
+"""
 # Predykcja dla zbioru trenowanego i testowanego
 y_train_pred = clf.predict(X_train)
 y_test_pred = clf.predict(X_test)
@@ -57,10 +57,10 @@ plt.title('Mean Squared Error for Training and Test Data')
 plt.xlabel('Dataset')
 plt.ylabel('MSE')
 plt.xticks([0, 1], ['Training', 'Test'])
-plt.show()
 
+"""
 # Podział danych na batche
-batch_size = 20
+batch_size = 5
 classification_errors = []
 num_epochs = len(X_train) // batch_size
 
@@ -89,20 +89,14 @@ plt.xlabel('Batch')
 plt.ylabel('Classification Error')
 plt.title('Classification Error 20 Batch size')
 plt.show()
-
-# Warstwa ukryta
+"""
 hidden_layer_weights = clf.coefs_[0]
-plt.figure(figsize=(10, 5))
-plt.imshow(hidden_layer_weights, cmap='viridis', interpolation='nearest')
-plt.title('Weights in the Hidden Layer coefs_')
-plt.colorbar()
-plt.show()
-
-# Warstwa wejściowa
+# Warstwa ukryta
 input_layer_weights = clf.coefs_[1]
 plt.figure(figsize=(10, 5))
 plt.imshow(input_layer_weights, cmap='viridis', interpolation='nearest')
-plt.title('Weights in the Input Layer coefs_')
+plt.title('Weights in the Hidden Layer coefs_')
+plt.ylabel('Hidden Neurons')
 plt.colorbar()
 plt.show()
 
@@ -110,10 +104,12 @@ plt.show()
 plt.figure(figsize=(10, 5))
 plt.imshow(hidden_layer_weights.T, cmap='viridis', interpolation='nearest')
 plt.title('Weights Leading to the Output Layer coefs_')
+plt.ylabel('Output Neurons')
+plt.xlabel('Input Neurons')
 plt.colorbar()
 plt.show()
 
-# twoTrzenie siatki punktów
+# Tworzenie siatki punktów
 x_min, x_max = X_train[:, 0].min() - 1, X_train[:, 0].max() + 1
 y_min, y_max = X_train[:, 1].min() - 1, X_train[:, 1].max() + 1
 xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1),
@@ -122,24 +118,24 @@ xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1),
 Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
 Z = Z.reshape(xx.shape)
 
-# Wagi przedstawione poprzez  przestrzeń decyzyjną
+# Wagi przedstawione poprzez przestrzeń decyzyjną
 plt.contourf(xx, yy, Z, alpha=0.8)
 plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train, edgecolors='k', marker='o')
 plt.xlabel('Feature 1')
 plt.ylabel('Feature 2')
-plt.title('MinMax Weights in Output Layer')
-plt.legend('0', '1')
+plt.title('Decision Space')
 plt.show()
 
 # Wagi na podstawie regionów granicznych
 plot_decision_regions(X_train, y_train, clf=clf)
-plt.title('Train data Wages decision_regions')
+plt.title('Train decision regions')
 plt.xlabel(' ')
 plt.ylabel('Output Layer')
 plt.show()
 
 plot_decision_regions(X_test, y_test, clf=clf)
-plt.title('Test data Wages decision_regions')
+plt.title('Test decision regions')
 plt.xlabel(' ')
 plt.ylabel('Output Layer')
 plt.show()
+"""
