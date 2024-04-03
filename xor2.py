@@ -23,7 +23,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 # Tworzenie modelu
 clf = MLPClassifier(hidden_layer_sizes=(3),
-                    activation='tanh',
+                    activation='logistic',
                     learning_rate_init=1,
                     learning_rate='constant',
                     max_iter=5000,
@@ -58,20 +58,21 @@ plt.xlabel('Dataset')
 plt.ylabel('MSE')
 plt.xticks([0, 1], ['Training', 'Test'])
 
-
+missclasifications = []
 errors = []
 
 # Trenowanie modelu i zbieranie błędów klasyfikacji w każdej epoce
-for i in range(clf.max_iter):
+for i in range(clf.n_iter_):
     clf.partial_fit(X, y, classes=np.unique(y))
     y_pred = clf.predict(X)
     mse = mean_squared_error(y, y_pred)
     error = 1 - accuracy_score(y, y_pred)
+    missclasification = error
     if error >= 0.5:
         error = 1
     if error < 0.5:
         error = 0
-
+    missclasifications.append(missclasification)
     errors.append(error)
 
 # Wykres błędu klasyfikacji w każdej epoce uczenia
@@ -82,23 +83,22 @@ plt.xlabel('Epochs')
 plt.ylabel('Classification Error')
 plt.show()
 
-
-output_layer_weights = clf.coefs_[0]
-# Warstwa ukryta
-hidden_layer_weights = clf.coefs_[1]
+# Wykres błędu klasyfikacji w każdej epoce uczenia
 plt.figure(figsize=(10, 5))
-plt.imshow(hidden_layer_weights, cmap='viridis', interpolation='nearest')
-plt.title('Weights in the Hidden Layer coefs_')
-plt.ylabel('Hidden Neurons')
-plt.colorbar()
+plt.plot(missclasifications)
+plt.title('Classification Error in Each Epoch')
+plt.xlabel('Epochs')
+plt.ylabel('Classification Error')
 plt.show()
 
+
+output_layer_weights = clf.coefs_[0]
 # Warstwa wyjściowa
 plt.figure(figsize=(10, 5))
 plt.imshow(output_layer_weights.T, cmap='viridis', interpolation='nearest')
 plt.title('Weights Leading to the Output Layer coefs_')
 plt.ylabel('Output Neurons')
-plt.xlabel('Input Neurons')
+plt.xlabel('Hidden Neurons')
 plt.colorbar()
 plt.show()
 
