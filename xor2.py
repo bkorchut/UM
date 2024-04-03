@@ -59,36 +59,29 @@ plt.ylabel('MSE')
 plt.xticks([0, 1], ['Training', 'Test'])
 
 """
-# Podział danych na batche
-batch_size = 5
-classification_errors = []
-num_epochs = len(X_train) // batch_size
+errors = []
 
-# Obliczanie błędu klasyfikacji po każdym batchu
-for epoch in range(num_epochs):
-    start = epoch * batch_size
-    end = start + batch_size
-    X_train_batch = X_train[start:end]
-    y_train_batch = y_train[start:end]
-
-    clf.fit(X_train_batch, y_train_batch)
-    y_pred = clf.predict(X_test)
-
-    # Obliczanie błedu klasyfikacji
-    error = np.mean(y_pred != y_test)
+# Trenowanie modelu i zbieranie błędów klasyfikacji w każdej epoce
+for i in range(clf.max_iter):
+    clf.partial_fit(X, y, classes=np.unique(y))
+    y_pred = clf.predict(X)
+    mse = mean_squared_error(y, y_pred)
+    error = 1 - accuracy_score(y, y_pred)
     if error >= 0.5:
         error = 1
-    if error < 0.5:
+    elif error < 0.5:
         error = 0
-    classification_errors.append(error)
 
-# Wykres błędu klasyfikacji
+    errors.append(error)
+
+# Wykres błędu klasyfikacji w każdej epoce uczenia
 plt.figure(figsize=(10, 5))
-plt.plot(range(num_epochs), classification_errors)
-plt.xlabel('Batch')
+plt.plot(errors)
+plt.title('Classification Error in Each Epoch')
+plt.xlabel('Epochs')
 plt.ylabel('Classification Error')
-plt.title('Classification Error 20 Batch size')
 plt.show()
+
 """
 hidden_layer_weights = clf.coefs_[0]
 # Warstwa ukryta
