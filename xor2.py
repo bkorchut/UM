@@ -22,7 +22,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 
 # Tworzenie modelu
-clf = MLPClassifier(hidden_layer_sizes=(5),
+clf = MLPClassifier(hidden_layer_sizes=(3),
                     activation='tanh',
                     learning_rate_init=1,
                     learning_rate='constant',
@@ -83,11 +83,11 @@ plt.ylabel('Classification Error')
 plt.show()
 
 
-hidden_layer_weights = clf.coefs_[0]
+output_layer_weights = clf.coefs_[0]
 # Warstwa ukryta
-input_layer_weights = clf.coefs_[1]
+hidden_layer_weights = clf.coefs_[1]
 plt.figure(figsize=(10, 5))
-plt.imshow(input_layer_weights, cmap='viridis', interpolation='nearest')
+plt.imshow(hidden_layer_weights, cmap='viridis', interpolation='nearest')
 plt.title('Weights in the Hidden Layer coefs_')
 plt.ylabel('Hidden Neurons')
 plt.colorbar()
@@ -95,7 +95,7 @@ plt.show()
 
 # Warstwa wyjściowa
 plt.figure(figsize=(10, 5))
-plt.imshow(hidden_layer_weights.T, cmap='viridis', interpolation='nearest')
+plt.imshow(output_layer_weights.T, cmap='viridis', interpolation='nearest')
 plt.title('Weights Leading to the Output Layer coefs_')
 plt.ylabel('Output Neurons')
 plt.xlabel('Input Neurons')
