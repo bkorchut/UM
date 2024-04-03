@@ -69,7 +69,7 @@ for i in range(clf.max_iter):
     error = 1 - accuracy_score(y, y_pred)
     if error >= 0.5:
         error = 1
-    elif error < 0.5:
+    if error < 0.5:
         error = 0
 
     errors.append(error)
