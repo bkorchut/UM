@@ -41,7 +41,7 @@ plt.title('Losses in Each Layer')
 plt.xlabel('Epochs')
 plt.ylabel('Loss')
 
-"""
+
 # Predykcja dla zbioru trenowanego i testowanego
 y_train_pred = clf.predict(X_train)
 y_test_pred = clf.predict(X_test)
@@ -58,7 +58,7 @@ plt.xlabel('Dataset')
 plt.ylabel('MSE')
 plt.xticks([0, 1], ['Training', 'Test'])
 
-"""
+
 errors = []
 
 # Trenowanie modelu i zbieranie błędów klasyfikacji w każdej epoce
@@ -82,7 +82,7 @@ plt.xlabel('Epochs')
 plt.ylabel('Classification Error')
 plt.show()
 
-"""
+
 hidden_layer_weights = clf.coefs_[0]
 # Warstwa ukryta
 input_layer_weights = clf.coefs_[1]
@@ -131,4 +131,3 @@ plt.title('Test decision regions')
 plt.xlabel(' ')
 plt.ylabel('Output Layer')
 plt.show()
-"""
